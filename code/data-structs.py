@@ -45,6 +45,17 @@ for item in mixedArray:
 
 print mixedArray
 
+#-- Dictionaries
+jsonLikeStruct = {'testItem':10, 'otherProperty':'Test'}
+
+print jsonLikeStruct
+
+#-- Can call items like an array
+print jsonLikeStruct['testItem']
+
+#-- Not like an object though
+# print jsonLikeStruct.testItem
+
 #-- Aaaand sublime has an inbuilt python console!
 
 
