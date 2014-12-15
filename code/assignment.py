@@ -162,12 +162,10 @@ def gradientDescent(X,y,alpha,num_iterations):
     # -- Start by replacing theta_temp with theta
     theta_temp = np.zeros((1,X.shape[1])) 
     for k in range(0,num_iterations):
-        sum = np.sum((theta.dot(X.transpose()) - y.transpose()).transpose() * X,axis=0)
+        sum = np.sum((theta.dot(X.transpose()) - y) * X.transpose(),axis=0)
         theta_temp = theta - (alpha / m) * sum
         theta = theta_temp.copy()
         J_history = np.append(J_history,computeCost(X,y,theta))
-
-    tempSum = 0;
 
 
     return theta, J_history
