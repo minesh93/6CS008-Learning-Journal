@@ -1,0 +1,40 @@
+; Universal Turing machine
+
+;-- Initial State keep moving right until the end(space reached) then drop a marker
+0 0 * r 0
+0 1 * r 0
+0 _ ! l grabNumber
+
+;-- Grab the current number and set state to move whatever number we chosen i.e if a 0 then set state to move0 also replace that number with a & 
+grabNumber 0 & r move0
+grabNumber 1 & r move1
+
+
+;-- Keep moving right until we find a place then drop that number where the space is then change state to be moveToStart
+move0 ! * r move0
+move0 & * r move0
+move0 0 * r move0
+move0 1 * r move0
+move0 _ 0 l moveToStart
+
+;-- Same applies for moving 1 along once a space has been found change state to moveToStart after dropping/placing the one
+move1 ! * r move1
+move1 & * r move1
+move1 0 * r move1
+move1 1 * r move1
+move1 _ 1 l moveToStart
+
+
+;-- moveToStart will move back to the most recent number avoiding the markers. Once a number is found it is then grabbed.
+moveToStart ! * l moveToStart
+moveToStart 0 * l moveToStart
+moveToStart 1 * l moveToStart
+moveToStart & * l fetchNumber
+fetchNumber & * l fetchNumber
+fetchNumber 0 * * grabNumber
+fetchNumber 1 * * grabNumber
+
+;-- If moving left we find no numbers meaning the reverse operation is complete then erase the markers placed
+fetchNumber _ * r eraseMarker
+eraseMarker & _ r eraseMarker
+eraseMarker ! _ r eraseMarker
